@@ -1,3 +1,5 @@
+官方下载的[Demo](https://github.com/sealtalk/sealtalk-android)一开始运行不起来，不知道是什么原因，但是经过这一周多的尝试，今天终于成功进入了项目的主页面。
+
 # sealtalk-android
 [![Platform](https://img.shields.io/badge/platform-android-green.svg)](http://developer.android.com/index.html)
 [![API](https://img.shields.io/badge/API-9%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=9)<br/>
