@@ -1,14 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.3"
+    compileSdkVersion 26
 
     defaultConfig {
         applicationId "cn.rongcloud.im"
         minSdkVersion 16
-        targetSdkVersion 23
-        versionCode 2018102915
+        targetSdkVersion 26
+        versionCode 20181029
         versionName "1.3.7"
 
         multiDexEnabled true
@@ -25,12 +24,12 @@ android {
             keyPassword "Amigo123"
         }
     }
-    sourceSets {
+   /* sourceSets {
         main {
             jni.srcDirs = []
             jniLibs.srcDirs = ['libs']
         }
-    }
+    }*/
     packagingOptions {
         exclude 'AndroidManifest.xml'
     }
@@ -58,16 +57,21 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile 'com.android.support:support-v4:26.0.0'
-    compile project(':recognizer')
-    compile project(':contactcard')
-    compile project(':sticker')
-    compile 'com.android.support:multidex:1.0.1'
-    compile 'com.facebook.stetho:stetho:1.4.1'
-    compile project(':IMKit')
-    compile project(':CallKit')
-    compile project(':RedPacket')
-    compile 'com.huawei.android.hms:push:2.5.3.305'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support:support-v4:26.1.0'
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation 'com.facebook.stetho:stetho:1.4.1'
+    implementation project(':IMKit')
+    implementation project(':IMLib')
+    implementation project(':CallKit')
+    implementation project(':CallLib')
+
+    implementation project(':recognizer')
+    implementation project(':contactcard')
+//    implementation project(':sticker')
+    implementation project(':RedPacket')
+    implementation 'com.huawei.android.hms:push:2.6.1.301'
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
 }
-apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.gms.google-services'

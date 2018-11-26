@@ -10,11 +10,6 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
-import com.facebook.stetho.Stetho;
-import com.facebook.stetho.dumpapp.DumperPlugin;
-import com.facebook.stetho.inspector.database.DefaultDatabaseConnectionProvider;
-import com.facebook.stetho.inspector.protocol.ChromeDevtoolsDomain;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,9 +24,6 @@ import cn.rongcloud.im.message.provider.TestMessageProvider;
 import cn.rongcloud.im.server.pinyin.CharacterParser;
 import cn.rongcloud.im.server.utils.NLog;
 import cn.rongcloud.im.server.utils.RongGenerate;
-import cn.rongcloud.im.stetho.RongDatabaseDriver;
-import cn.rongcloud.im.stetho.RongDatabaseFilesProvider;
-import cn.rongcloud.im.stetho.RongDbFilesDumperPlugin;
 import cn.rongcloud.im.ui.activity.UserDetailActivity;
 import cn.rongcloud.im.utils.SharedPreferencesContext;
 import io.rong.imageloader.core.DisplayImageOptions;
@@ -42,8 +34,6 @@ import io.rong.imkit.widget.provider.RealTimeLocationMessageProvider;
 import io.rong.imlib.RongIMClient;
 import io.rong.imlib.ipc.RongExceptionHandler;
 import io.rong.imlib.model.UserInfo;
-import io.rong.push.RongPushClient;
-import io.rong.push.common.RongException;
 import io.rong.recognizer.RecognizeExtensionModule;
 
 
@@ -55,7 +45,7 @@ public class App extends MultiDexApplication {
     public void onCreate() {
 
         super.onCreate();
-        Stetho.initialize(new Stetho.Initializer(this) {
+        /*Stetho.initialize(new Stetho.Initializer(this) {
             @Override
             protected Iterable<DumperPlugin> getDumperPlugins() {
                 return new Stetho.DefaultDumperPluginsBuilder(App.this)
@@ -69,19 +59,19 @@ public class App extends MultiDexApplication {
                 defaultInspectorModulesBuilder.provideDatabaseDriver(new RongDatabaseDriver(App.this, new RongDatabaseFilesProvider(App.this), new DefaultDatabaseConnectionProvider()));
                 return defaultInspectorModulesBuilder.finish();
             }
-        });
+        });*/
 
         if (getApplicationInfo().packageName.equals(getCurProcessName(getApplicationContext()))) {
 
 //            LeakCanary.install(this);//内存泄露检测
-            RongPushClient.registerHWPush(this);
+           /* RongPushClient.registerHWPush(this);
             RongPushClient.registerMiPush(this, "2882303761517473625", "5451747338625");
             RongPushClient.registerMZPush(this, "112988", "2fa951a802ac4bd5843d694517307896");
             try {
                 RongPushClient.registerFCM(this);
             } catch (RongException e) {
                 e.printStackTrace();
-            }
+            }*/
 
             /**
              * 注意：
@@ -104,8 +94,6 @@ public class App extends MultiDexApplication {
                 RongIM.registerMessageTemplate(new RealTimeLocationMessageProvider());
                 RongIM.registerMessageType(TestMessage.class);
                 RongIM.registerMessageTemplate(new TestMessageProvider());
-
-
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -113,6 +101,7 @@ public class App extends MultiDexApplication {
             RongIM.setConnectionStatusListener(new RongIMClient.ConnectionStatusListener() {
                 @Override
                 public void onChanged(ConnectionStatus status) {
+                    Log.d("", "onChanged: ");
                     if (status == ConnectionStatus.TOKEN_INCORRECT) {
                         SharedPreferences sp = getSharedPreferences("config", MODE_PRIVATE);
                         final String cacheToken = sp.getString("loginToken", "");
